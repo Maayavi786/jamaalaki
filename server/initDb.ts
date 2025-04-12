@@ -50,12 +50,13 @@ export async function initializeDatabase() {
     // Add first salon
     const salon1Result = await db.execute(sql`
       INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, email, phone, 
-                         is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at) 
-      VALUES (${ownerId}, 'Jamaalaki Elegance Spa', 'جمالكِ للسبا الفاخر', 
+                         is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at, image_url) 
+      VALUES (${ownerId}, 'The Beauty Elegance Spa', 'ذا بيوتي للسبا الفاخر', 
               'Luxury spa and beauty salon with a focus on personalized care.', 
               'صالون سبا وتجميل فاخر مع التركيز على العناية الشخصية.',
-              'King Fahd Road, Riyadh', 'Riyadh', 'contact@jamaalaki.sa', '+966512345678',
-              true, true, true, true, 4.8, 'premium', NOW())
+              'King Fahd Road, Riyadh', 'Riyadh', 'contact@thebeauty.sa', '+966512345678',
+              true, true, true, true, 4.8, 'premium', NOW(),
+              'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=800&q=80')
       RETURNING id
     `);
     const salon1Id = salon1Result.rows[0].id;
@@ -64,11 +65,12 @@ export async function initializeDatabase() {
     const salon2Result = await db.execute(sql`
       INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, email, phone, 
                          is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at) 
-      VALUES (${ownerId}, 'Jamaalaki Beauty Lounge', 'صالون جمالكِ العصري', 
+      VALUES (${ownerId}, 'The Beauty Lounge', 'ذا بيوتي لاونج', 
               'Contemporary beauty treatments in a stylish environment.', 
               'علاجات تجميل معاصرة في بيئة أنيقة.',
-              'Tahlia Street, Jeddah', 'Jeddah', 'info@jamaalaki.sa', '+966512345679',
-              true, true, true, true, 4.5, 'mid-range', NOW())
+              'Tahlia Street, Jeddah', 'Jeddah', 'info@thebeauty.sa', '+966512345679',
+              true, true, true, true, 4.6, 'premium', NOW(),
+              'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80')e, true, 4.5, 'mid-range', NOW())
       RETURNING id
     `);
     const salon2Id = salon2Result.rows[0].id;
