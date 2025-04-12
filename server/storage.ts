@@ -301,7 +301,12 @@ export class MemStorage implements IStorage {
   async createReview(reviewData: InsertReview): Promise<Review> {
     const id = this.reviewIdCounter++;
     const createdAt = new Date();
-    const review: Review = { ...reviewData, id, createdAt };
+    const review: Review = { 
+      ...reviewData, 
+      id, 
+      createdAt,
+      comment: reviewData.comment ?? null
+    };
     this.reviews.set(id, review);
     
     // Update salon rating
