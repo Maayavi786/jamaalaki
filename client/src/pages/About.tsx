@@ -111,7 +111,7 @@ const About = () => {
               <MapPin className="h-10 w-10 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-2">{t('visitUs')}</h3>
-            <p>King Fahd Road, Riyadh</p>
+            <p>Mohamed Saud Street, Mubarraz, Al Ahsa</p>
             <p>Saudi Arabia</p>
           </div>
           <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-all">
