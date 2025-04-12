@@ -11,7 +11,7 @@ export function LanguageToggle() {
       variant="outline" 
       size="sm" 
       onClick={toggleLanguage}
-      className="text-sm px-3 py-1 rounded-full bg-primary bg-opacity-10 text-primary hover:bg-opacity-20 hover:text-primary transition-colors hover:text-opacity-100"
+      className="text-sm px-3 py-1 rounded-full bg-primary bg-opacity-10 text-primary hover:bg-opacity-20 hover:text-primary-foreground transition-colors hover:text-opacity-100"
     >
       {language === 'en' ? 'العربية' : 'English'}
     </Button>
