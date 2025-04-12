@@ -88,7 +88,7 @@ const Services = () => {
               ? 'استكشفي مجموعة واسعة من خدمات التجميل المتميزة المصممة خصيصًا لك'
               : 'Explore our wide range of premium beauty services tailored just for you'}
           </p>
-          
+
           {/* Search */}
           <div className="relative max-w-md mx-auto">
             <Input
