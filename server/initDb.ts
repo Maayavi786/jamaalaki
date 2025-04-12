@@ -133,6 +133,41 @@ export async function initializeDatabase() {
         phone: '057-119-2288',
         services: 'Organic Facials, Nail Extensions, Hair Color, Makeup',
         instagram: '@bloomlounge_ahsa'
+      },
+      {
+        name: 'Elegant Style Beauty Hub',
+        address: 'Al Ahsa Mall Area',
+        phone: '059-006-7711',
+        services: 'Balayage, Botox Hair Treatment, Eyebrow Tinting, Haircuts',
+        instagram: '@elegantstyle_ksa'
+      },
+      {
+        name: 'Nayyara Beauty Studio',
+        address: 'King Fahd District',
+        phone: '058-888-5522',
+        services: 'Full Body Wax, Gold Facial, Hair Smoothing, Wedding Makeup',
+        instagram: '@nayyara_beauty'
+      },
+      {
+        name: 'Lush & Blush Salon',
+        address: 'Northern Al Ahsa',
+        phone: '050-556-0090',
+        services: 'Makeup Lessons, Party Makeup, Facial Peels, Aromatherapy',
+        instagram: '@lushblush_ahsa'
+      },
+      {
+        name: 'Royal Beauty Lounge',
+        address: 'Hofuf City Center',
+        phone: '054-770-1112',
+        services: 'Henna Designs, Hair Extensions, Bridal Trials, Spa',
+        instagram: '@royalbeauty_hofuf'
+      },
+      {
+        name: 'Velvet Touch Studio',
+        address: 'Al Ahsa Corniche',
+        phone: '051-300-4000',
+        services: 'Laser Hair Removal, Lip Blushing, Semi-Permanent Makeup, Bridal Packages',
+        instagram: '@velvettouchksa'
       }
     ];
 
