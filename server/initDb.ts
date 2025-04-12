@@ -1,48 +1,154 @@
-
-import { db } from './db';
-import { 
-  users, salons, services
-} from '@shared/schema';
-import { sql } from 'drizzle-orm';
-import { hashPassword } from './auth';
+import { db } from "./db";
+import { sql } from "drizzle-orm";
+import bcrypt from "bcryptjs";
 
 export async function initializeDatabase() {
   console.log("Checking if database needs initialization...");
 
-  try {
-    const result = await db.execute(sql`SELECT COUNT(*) FROM users`);
-    const count = Number(result.rows[0]?.count || 0);
-    
-    if (count > 0) {
-      console.log("Database already has users, skipping initialization.");
-      return;
+  // Check if we already have users
+  const existingUsers = await db.execute(sql`SELECT COUNT(*) as count FROM users`);
+  if (existingUsers.rows[0].count > 0) {
+    console.log("Database already has users, skipping initialization.");
+    return;
+  }
+
+  console.log("Initializing database with sample data...");
+
+  // Create admin user
+  const hashedPassword = await bcrypt.hash("admin123", 10);
+  const adminResult = await db.execute(sql`
+    INSERT INTO users (username, email, password, role, created_at)
+    VALUES ('admin', 'admin@example.com', ${hashedPassword}, 'admin', NOW())
+    RETURNING id
+  `);
+  const adminId = adminResult.rows[0].id;
+
+  // Create salon owner
+  const ownerResult = await db.execute(sql`
+    INSERT INTO users (username, email, password, role, created_at)
+    VALUES ('owner', 'owner@example.com', ${hashedPassword}, 'owner', NOW())
+    RETURNING id
+  `);
+  const ownerId = ownerResult.rows[0].id;
+
+
+  // Add Al Ahsa salons
+  const alahsaSalons = [
+    {
+      name: 'Glamour Touch Salon',
+      address: 'Hofuf, Al Ahsa',
+      phone: '050-123-4567',
+      services: 'Haircut, Makeup, Facial, Moroccan Bath, Hair Color, Nail Art',
+      instagram: '@glamourtouch_ahsa'
+    },
+    {
+      name: 'Al Jawhara Beauty Center',
+      address: 'Al Mubarraz',
+      phone: '053-987-6543',
+      services: 'Bridal Makeup, Threading, Facial, Henna, Pedicure',
+      instagram: '@aljawhara_beauty'
+    },
+    {
+      name: 'Maison de Beauté',
+      address: 'Al Hofuf Central',
+      phone: '055-332-1144',
+      services: 'Hair Styling, Keratin, Lash Extensions, Waxing, Microblading',
+      instagram: '@maisondebeaute_ksa'
+    },
+    {
+      name: 'Layali Zainab Salon',
+      address: 'Al Khalidiyah',
+      phone: '050-778-8899',
+      services: 'Facial, Manicure, Bridal Packages, Hair Spa, Waxing',
+      instagram: '@layali_zainab'
+    },
+    {
+      name: 'Bloom Lounge',
+      address: 'Al Uqair Road',
+      phone: '057-119-2288',
+      services: 'Organic Facials, Nail Extensions, Hair Color, Makeup',
+      instagram: '@bloomlounge_ahsa'
+    },
+    {
+      name: 'Elegant Style Beauty Hub',
+      address: 'Al Ahsa Mall Area',
+      phone: '059-006-7711',
+      services: 'Balayage, Botox Hair Treatment, Eyebrow Tinting, Haircuts',
+      instagram: '@elegantstyle_ksa'
+    },
+    {
+      name: 'Nayyara Beauty Studio',
+      address: 'King Fahd District',
+      phone: '058-888-5522',
+      services: 'Full Body Wax, Gold Facial, Hair Smoothing, Wedding Makeup',
+      instagram: '@nayyara_beauty'
+    },
+    {
+      name: 'Lush & Blush Salon',
+      address: 'Northern Al Ahsa',
+      phone: '050-556-0090',
+      services: 'Makeup Lessons, Party Makeup, Facial Peels, Aromatherapy',
+      instagram: '@lushblush_ahsa'
+    },
+    {
+      name: 'Royal Beauty Lounge',
+      address: 'Hofuf City Center',
+      phone: '054-770-1112',
+      services: 'Henna Designs, Hair Extensions, Bridal Trials, Spa',
+      instagram: '@royalbeauty_hofuf'
+    },
+    {
+      name: 'Velvet Touch Studio',
+      address: 'Al Ahsa Corniche',
+      phone: '051-300-4000',
+      services: 'Laser Hair Removal, Lip Blushing, Semi-Permanent Makeup, Bridal Packages',
+      instagram: '@velvettouchksa'
     }
+  ];
 
-    console.log("Initializing database with sample data...");
-
-    // Create initial users
-    const adminPassword = await hashPassword('admin123');
-    const ownerPassword = await hashPassword('password123');
-    const customerPassword = await hashPassword('password123');
-
-    const adminResult = await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
-      VALUES ('admin', ${adminPassword}, 'admin@jamaalaki.sa', 'Admin User', '+966501234567', 'admin', 'en', NOW())
+  for (const salon of alahsaSalons) {
+    const result = await db.execute(sql`
+      INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, phone, 
+                         is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at, image_url) 
+      VALUES (
+        ${ownerId},
+        ${salon.name},
+        ${salon.name},
+        ${salon.services},
+        ${salon.services},
+        ${salon.address},
+        'Al Ahsa',
+        ${salon.phone},
+        true,
+        true,
+        true,
+        true,
+        4.5,
+        'mid-range',
+        NOW(),
+        'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1350&q=80'
+      )
       RETURNING id
     `);
-    const adminId = adminResult.rows[0].id;
 
-    const ownerResult = await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
-      VALUES ('salonowner1', ${ownerPassword}, 'owner@elegancespa.sa', 'Sarah Al-Qahtani', '+966501234568', 'salon_owner', 'ar', NOW())
-      RETURNING id
-    `);
-    const ownerId = ownerResult.rows[0].id;
-
-    await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
-      VALUES ('customer1', ${customerPassword}, 'customer@example.com', 'Fatima Abdullah', '+966501234569', 'customer', 'en', NOW())
-    `);
+    // Add services for each salon
+    const servicesList = salon.services.split(', ');
+    for (const service of servicesList) {
+      await db.execute(sql`
+        INSERT INTO services (salon_id, name_en, name_ar, description_en, description_ar, price, duration, category)
+        VALUES (
+          ${result.rows[0].id},
+          ${service},
+          ${service},
+          'Professional ${service} service',
+          'خدمة ${service} احترافية',
+          350,
+          60,
+          'beauty'
+        )
+      `);
+    }
+  }
 
     // Add salons with diverse services
     const salon1Result = await db.execute(sql`
@@ -96,125 +202,6 @@ export async function initializeDatabase() {
       RETURNING id
     `);
     const salon4Id = salon4Result.rows[0].id;
-
-    // Add Al Ahsa salons
-    const alahsaSalons = [
-      {
-        name: 'Glamour Touch Salon',
-        address: 'Hofuf, Al Ahsa',
-        phone: '050-123-4567',
-        services: 'Haircut, Makeup, Facial, Moroccan Bath, Hair Color, Nail Art',
-        instagram: '@glamourtouch_ahsa'
-      },
-      {
-        name: 'Al Jawhara Beauty Center',
-        address: 'Al Mubarraz',
-        phone: '053-987-6543',
-        services: 'Bridal Makeup, Threading, Facial, Henna, Pedicure',
-        instagram: '@aljawhara_beauty'
-      },
-      {
-        name: 'Maison de Beauté',
-        address: 'Al Hofuf Central',
-        phone: '055-332-1144',
-        services: 'Hair Styling, Keratin, Lash Extensions, Waxing, Microblading',
-        instagram: '@maisondebeaute_ksa'
-      },
-      {
-        name: 'Layali Zainab Salon',
-        address: 'Al Khalidiyah',
-        phone: '050-778-8899',
-        services: 'Facial, Manicure, Bridal Packages, Hair Spa, Waxing',
-        instagram: '@layali_zainab'
-      },
-      {
-        name: 'Bloom Lounge',
-        address: 'Al Uqair Road',
-        phone: '057-119-2288',
-        services: 'Organic Facials, Nail Extensions, Hair Color, Makeup',
-        instagram: '@bloomlounge_ahsa'
-      },
-      {
-        name: 'Elegant Style Beauty Hub',
-        address: 'Al Ahsa Mall Area',
-        phone: '059-006-7711',
-        services: 'Balayage, Botox Hair Treatment, Eyebrow Tinting, Haircuts',
-        instagram: '@elegantstyle_ksa'
-      },
-      {
-        name: 'Nayyara Beauty Studio',
-        address: 'King Fahd District',
-        phone: '058-888-5522',
-        services: 'Full Body Wax, Gold Facial, Hair Smoothing, Wedding Makeup',
-        instagram: '@nayyara_beauty'
-      },
-      {
-        name: 'Lush & Blush Salon',
-        address: 'Northern Al Ahsa',
-        phone: '050-556-0090',
-        services: 'Makeup Lessons, Party Makeup, Facial Peels, Aromatherapy',
-        instagram: '@lushblush_ahsa'
-      },
-      {
-        name: 'Royal Beauty Lounge',
-        address: 'Hofuf City Center',
-        phone: '054-770-1112',
-        services: 'Henna Designs, Hair Extensions, Bridal Trials, Spa',
-        instagram: '@royalbeauty_hofuf'
-      },
-      {
-        name: 'Velvet Touch Studio',
-        address: 'Al Ahsa Corniche',
-        phone: '051-300-4000',
-        services: 'Laser Hair Removal, Lip Blushing, Semi-Permanent Makeup, Bridal Packages',
-        instagram: '@velvettouchksa'
-      }
-    ];
-
-    for (const salon of alahsaSalons) {
-      const result = await db.execute(sql`
-        INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, phone, 
-                           is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at, image_url) 
-        VALUES (
-          ${ownerId},
-          ${salon.name},
-          ${salon.name},
-          ${salon.services},
-          ${salon.services},
-          ${salon.address},
-          'Al Ahsa',
-          ${salon.phone},
-          true,
-          true,
-          true,
-          true,
-          4.5,
-          'mid-range',
-          NOW(),
-          'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1350&q=80'
-        )
-        RETURNING id
-      `);
-      
-      // Add some basic services for each salon
-      const servicesList = salon.services.split(', ');
-      for (const service of servicesList) {
-        await db.execute(sql`
-          INSERT INTO services (salon_id, name_en, name_ar, description_en, description_ar, price, duration, category, image_url)
-          VALUES (
-            ${result.rows[0].id},
-            ${service},
-            ${service},
-            'Professional ${service} service',
-            'خدمة ${service} احترافية',
-            ${Math.floor(Math.random() * (500 - 100) + 100)},
-            ${Math.floor(Math.random() * (120 - 30) + 30)},
-            'beauty',
-            'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1350&q=80'
-          )
-        `);
-      }
-    }
 
     // Add services for Elegance Beauty Lounge
     await db.execute(sql`
@@ -284,9 +271,5 @@ export async function initializeDatabase() {
          700, 60, 'skin', 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1350&q=80')
     `);
 
-    console.log("Database successfully initialized with sample data.");
-  } catch (error) {
-    console.error("Error initializing database:", error);
-    throw error;
-  }
+  console.log("Database initialized successfully!");
 }
