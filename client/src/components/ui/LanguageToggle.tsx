@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export function LanguageToggle() {
+const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
   const isRtl = language === 'ar';
   
@@ -16,4 +16,6 @@ export function LanguageToggle() {
       {isRtl ? 'English' : 'العربية'}
     </Button>
   );
-}
+};
+
+export default LanguageToggle;
