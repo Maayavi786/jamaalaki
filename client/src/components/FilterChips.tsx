@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import React from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Check } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FilterOption {
   id: string;
@@ -16,51 +16,38 @@ interface FilterChipsProps {
   isCheckbox?: boolean;
 }
 
-const FilterChips = ({ 
-  options, 
-  selectedFilters, 
+export const FilterChips: React.FC<FilterChipsProps> = ({
+  options,
+  selectedFilters,
   toggleFilter,
-  isCheckbox = false
+  isCheckbox = false,
 }: FilterChipsProps) => {
-  const { t } = useTranslation("common");
   const { isRtl } = useLanguage();
-
+  
   return (
     <div className="flex flex-wrap gap-2">
-      {options.map((option) => (
-        <div
-          key={option.id}
-          onClick={() => toggleFilter(option.id)}
-          className={`
-            ${isCheckbox 
-              ? "bg-background dark:bg-neutral-900/30" 
-              : "bg-muted dark:bg-neutral-800/30"} 
-            ${isCheckbox ? "px-3 py-1.5" : "px-5 py-3"} 
-            rounded-full text-sm flex items-center gap-1.5 cursor-pointer 
-            hover:bg-opacity-90 transition-colors
-            ${selectedFilters.includes(option.id) && !isCheckbox ? "ring-1 ring-primary" : ""}
-          `}
-        >
-          {!isCheckbox && option.color && (
-            <span 
-              className="w-3 h-3 rounded-full" 
-              style={{ backgroundColor: option.color }}
-            ></span>
-          )}
-          
-          {isCheckbox && (
-            <Checkbox 
-              id={option.id} 
-              checked={selectedFilters.includes(option.id)}
-              className="text-primary rounded"
-            />
-          )}
-          
-          <span className={isRtl ? 'font-tajawal' : ''}>
+      {options.map((option) => {
+        const isSelected = selectedFilters.includes(option.id);
+        
+        return (
+          <Badge
+            key={option.id}
+            variant={isSelected ? "default" : "outline"}
+            className={`
+              cursor-pointer transition-all py-2 px-4
+              ${isRtl ? 'font-tajawal' : ''}
+              ${option.color ? `bg-${option.color}-100 text-${option.color}-800 border-${option.color}-300` : ''}
+              ${isSelected ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'hover:bg-primary/10'}
+            `}
+            onClick={() => toggleFilter(option.id)}
+          >
+            {isCheckbox && isSelected && (
+              <Check className="mr-1 h-3 w-3" />
+            )}
             {option.label}
-          </span>
-        </div>
-      ))}
+          </Badge>
+        );
+      })}
     </div>
   );
 };

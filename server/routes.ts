@@ -158,6 +158,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Service routes
+  app.get("/api/services", async (req: Request, res: Response) => {
+    try {
+      // Get all services from all salons
+      const salons = await storage.getSalons();
+      const allServices = [];
+      
+      for (const salon of salons) {
+        const salonServices = await storage.getServicesBySalon(salon.id);
+        allServices.push(...salonServices);
+      }
+      
+      res.status(200).json(allServices);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
   app.get("/api/services/salon/:salonId", async (req: Request, res: Response) => {
     try {
       const services = await storage.getServicesBySalon(parseInt(req.params.salonId));
