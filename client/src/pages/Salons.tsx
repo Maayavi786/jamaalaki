@@ -117,15 +117,18 @@ const Salons = () => {
         : [...prev, id]
     );
     
+    // Get the upcoming state of the filters
+    const isCurrentlySelected = selectedFilters.includes(id);
+    
     // Update query params
     const newParams = { ...queryParams };
     
     if (id === 'ladiesOnly') {
-      newParams.isLadiesOnly = !prev.includes(id);
+      newParams.isLadiesOnly = !isCurrentlySelected;
     } else if (id === 'privateRoom') {
-      newParams.hasPrivateRooms = !prev.includes(id);
+      newParams.hasPrivateRooms = !isCurrentlySelected;
     } else if (id === 'hijabFriendly') {
-      newParams.isHijabFriendly = !prev.includes(id);
+      newParams.isHijabFriendly = !isCurrentlySelected;
     }
     
     setQueryParams(newParams);

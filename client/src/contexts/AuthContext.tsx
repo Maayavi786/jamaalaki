@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       toast({
         title: 'Login Successful',
-        description: 'Welcome back to Glam Haven!',
+        description: 'Welcome back to Jamaalaki!',
       });
       
       return true;
@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       toast({
         title: 'Registration Successful',
-        description: 'Welcome to Glam Haven!',
+        description: 'Welcome to Jamaalaki!',
       });
       
       return true;

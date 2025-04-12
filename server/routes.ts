@@ -6,6 +6,7 @@ import {
   insertBookingSchema, insertReviewSchema, loginSchema 
 } from "@shared/schema";
 import { ZodError } from "zod";
+import { hashPassword, comparePasswords } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Helper function to handle validation errors
@@ -39,7 +40,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Email already exists" });
       }
 
-      const user = await storage.createUser(data);
+      // Hash the password before storing it
+      const hashedPassword = await hashPassword(data.password);
+      const userData = { ...data, password: hashedPassword };
+      
+      const user = await storage.createUser(userData);
       // Don't return password in response
       const { password, ...userWithoutPassword } = user;
       
@@ -58,7 +63,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const user = await storage.getUserByUsername(data.username);
-      if (!user || user.password !== data.password) {
+      if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      // Compare the provided password with the stored hash
+      const passwordMatch = await comparePasswords(data.password, user.password);
+      if (!passwordMatch) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 

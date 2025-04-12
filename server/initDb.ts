@@ -3,6 +3,7 @@ import {
   users, salons, services
 } from '@shared/schema';
 import { sql } from 'drizzle-orm';
+import { hashPassword } from './auth';
 
 export async function initializeDatabase() {
   console.log("Checking if database needs initialization...");
@@ -19,36 +20,41 @@ export async function initializeDatabase() {
 
     console.log("Initializing database with sample data...");
 
+    // Hash passwords for security
+    const adminPassword = await hashPassword('admin123');
+    const ownerPassword = await hashPassword('password123');
+    const customerPassword = await hashPassword('password123');
+
     // Add admin user
     const adminResult = await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, loyalty_points, preferred_language, created_at) 
-      VALUES ('admin', 'admin123', 'admin@glamhaven.sa', 'Admin User', '+966501234567', 'admin', 0, 'en', NOW())
+      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
+      VALUES ('admin', ${adminPassword}, 'admin@jamaalaki.sa', 'Admin User', '+966501234567', 'admin', 'en', NOW())
       RETURNING id
     `);
     const adminId = adminResult.rows[0].id;
 
     // Add salon owner
     const ownerResult = await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, loyalty_points, preferred_language, created_at) 
-      VALUES ('salonowner1', 'password123', 'owner@elegancespa.sa', 'Sarah Al-Qahtani', '+966501234568', 'salon_owner', 0, 'ar', NOW())
+      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
+      VALUES ('salonowner1', ${ownerPassword}, 'owner@elegancespa.sa', 'Sarah Al-Qahtani', '+966501234568', 'salon_owner', 'ar', NOW())
       RETURNING id
     `);
     const ownerId = ownerResult.rows[0].id;
 
     // Add customer
     await db.execute(sql`
-      INSERT INTO users (username, password, email, full_name, phone, role, loyalty_points, preferred_language, created_at) 
-      VALUES ('customer1', 'password123', 'customer@example.com', 'Fatima Abdullah', '+966501234569', 'customer', 150, 'en', NOW())
+      INSERT INTO users (username, password, email, full_name, phone, role, preferred_language, created_at) 
+      VALUES ('customer1', ${customerPassword}, 'customer@example.com', 'Fatima Abdullah', '+966501234569', 'customer', 'en', NOW())
     `);
 
     // Add first salon
     const salon1Result = await db.execute(sql`
       INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, email, phone, 
                          is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at) 
-      VALUES (${ownerId}, 'Elegance Spa & Beauty', 'إيليغانس سبا وبيوتي', 
+      VALUES (${ownerId}, 'Jamaalaki Elegance Spa', 'جمالكِ للسبا الفاخر', 
               'Luxury spa and beauty salon with a focus on personalized care.', 
               'صالون سبا وتجميل فاخر مع التركيز على العناية الشخصية.',
-              'King Fahd Road, Riyadh', 'Riyadh', 'contact@elegancespa.sa', '+966512345678',
+              'King Fahd Road, Riyadh', 'Riyadh', 'contact@jamaalaki.sa', '+966512345678',
               true, true, true, true, 4.8, 'premium', NOW())
       RETURNING id
     `);
@@ -58,10 +64,10 @@ export async function initializeDatabase() {
     const salon2Result = await db.execute(sql`
       INSERT INTO salons (owner_id, name_en, name_ar, description_en, description_ar, address, city, email, phone, 
                          is_ladies_only, has_private_rooms, is_hijab_friendly, is_verified, rating, price_range, created_at) 
-      VALUES (${ownerId}, 'Modern Beauty Lounge', 'صالون الجمال العصري', 
+      VALUES (${ownerId}, 'Jamaalaki Beauty Lounge', 'صالون جمالكِ العصري', 
               'Contemporary beauty treatments in a stylish environment.', 
               'علاجات تجميل معاصرة في بيئة أنيقة.',
-              'Tahlia Street, Jeddah', 'Jeddah', 'info@modernbeauty.sa', '+966512345679',
+              'Tahlia Street, Jeddah', 'Jeddah', 'info@jamaalaki.sa', '+966512345679',
               true, true, true, true, 4.5, 'mid-range', NOW())
       RETURNING id
     `);
