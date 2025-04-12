@@ -134,42 +134,42 @@ const Header = () => {
               <ul className="space-y-4">
                 <li>
                   <Link href="/">
-                    <a 
-                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("home")}
-                    </a>
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/salons">
-                    <a 
-                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("salons")}
-                    </a>
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/services">
-                    <a 
-                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("services")}
-                    </a>
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/about">
-                    <a 
-                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block py-2 border-b border-neutral-200 dark:border-neutral-800 font-medium cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("about")}
-                    </a>
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -179,12 +179,12 @@ const Header = () => {
               {isAuthenticated ? (
                 <>
                   <Link href="/profile">
-                    <a 
-                      className={`block w-full bg-primary text-white py-2 rounded-lg mb-4 text-center ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block w-full bg-primary text-white py-2 rounded-lg mb-4 text-center cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("profile")}
-                    </a>
+                    </span>
                   </Link>
                   <Button 
                     className={`w-full border border-primary text-primary ${isRtl ? 'font-tajawal' : ''}`}
@@ -200,20 +200,20 @@ const Header = () => {
               ) : (
                 <>
                   <Link href="/login">
-                    <a 
-                      className={`block w-full bg-primary text-white py-2 rounded-lg mb-4 text-center ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block w-full bg-primary text-white py-2 rounded-lg mb-4 text-center cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("login")}
-                    </a>
+                    </span>
                   </Link>
                   <Link href="/register">
-                    <a 
-                      className={`block w-full border border-primary text-primary py-2 rounded-lg text-center ${isRtl ? 'font-tajawal' : ''}`}
+                    <span 
+                      className={`block w-full border border-primary text-primary py-2 rounded-lg text-center cursor-pointer ${isRtl ? 'font-tajawal' : ''}`}
                       onClick={closeMenu}
                     >
                       {t("register")}
-                    </a>
+                    </span>
                   </Link>
                 </>
               )}

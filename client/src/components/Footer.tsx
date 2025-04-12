@@ -30,18 +30,18 @@ const Footer = () => {
             </p>
             
             <div className="flex gap-4">
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <button className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <FaFacebookF />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              </button>
+              <button className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <FaInstagram />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              </button>
+              <button className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <FaTwitter />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              </button>
+              <button className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <FaSnapchat />
-              </a>
+              </button>
             </div>
           </div>
           
@@ -54,31 +54,31 @@ const Footer = () => {
             <ul className={`space-y-2 text-white/70 ${isRtl ? 'font-tajawal' : ''}`}>
               <li>
                 <Link href="/">
-                  <a className="hover:text-primary transition-colors">{t("home", { ns: "common" })}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("home", { ns: "common" })}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="hover:text-primary transition-colors">{t("services", { ns: "common" })}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("services", { ns: "common" })}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/about">
-                  <a className="hover:text-primary transition-colors">{t("about", { ns: "common" })}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("about", { ns: "common" })}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/salon-owners">
-                  <a className="hover:text-primary transition-colors">
+                  <span className="hover:text-primary transition-colors cursor-pointer">
                     {isLtr ? "For Salon Owners" : "لأصحاب الصالونات"}
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/loyalty">
-                  <a className="hover:text-primary transition-colors">
+                  <span className="hover:text-primary transition-colors cursor-pointer">
                     {isLtr ? "Loyalty Program" : "برنامج الولاء"}
-                  </a>
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -93,22 +93,22 @@ const Footer = () => {
             <ul className={`space-y-2 text-white/70 ${isRtl ? 'font-tajawal' : ''}`}>
               <li>
                 <Link href="/faq">
-                  <a className="hover:text-primary transition-colors">{t("faq")}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("faq")}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/privacy">
-                  <a className="hover:text-primary transition-colors">{t("privacyPolicy")}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("privacyPolicy")}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/terms">
-                  <a className="hover:text-primary transition-colors">{t("termsOfService")}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("termsOfService")}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <a className="hover:text-primary transition-colors">{t("contactUs")}</a>
+                  <span className="hover:text-primary transition-colors cursor-pointer">{t("contactUs")}</span>
                 </Link>
               </li>
             </ul>
