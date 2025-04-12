@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet";
 
 // Pages
 import Home from "@/pages/Home";
@@ -48,6 +49,13 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <Helmet
+        htmlAttributes={{ lang: language, dir: dir }}
+        titleTemplate="%s | Jamaalaki"
+        defaultTitle="Jamaalaki - Salon Booking"
+      >
+        <meta name="description" content="Book salon services in Saudi Arabia" />
+      </Helmet>
       <Header />
       <main className="flex-grow">
         <Router />

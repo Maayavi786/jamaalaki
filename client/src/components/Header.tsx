@@ -43,7 +43,7 @@ const Header = () => {
           <Link href="/">
             <div className="flex items-center cursor-pointer">
               <h1 className={`font-bold text-2xl text-primary ${isLtr ? 'font-playfair' : 'font-tajawal'}`}>
-                {isLtr ? "Glam Haven" : "جلام هيفن"}
+                {isLtr ? "Jamaalaki" : "جمالكِ"}
               </h1>
             </div>
           </Link>
@@ -123,7 +123,7 @@ const Header = () => {
           <div className={`bg-background dark:bg-neutral-900 h-full w-3/4 max-w-xs p-6 transform transition-transform ${isLtr ? 'right-0' : 'left-0'}`}>
             <div className="flex justify-between items-center mb-8">
               <h3 className={`font-bold text-xl text-primary ${isLtr ? 'font-playfair' : 'font-tajawal'}`}>
-                {isLtr ? "Glam Haven" : "جلام هيفن"}
+                {isLtr ? "Jamaalaki" : "جمالكِ"}
               </h3>
               <Button variant="ghost" size="icon" onClick={closeMenu}>
                 <X className="h-6 w-6" />

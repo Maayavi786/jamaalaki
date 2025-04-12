@@ -188,7 +188,7 @@ const Salons = () => {
   return (
     <>
       <Helmet>
-        <title>{isLtr ? "Salons | Glam Haven" : "الصالونات | جلام هيفن"}</title>
+        <title>{isLtr ? "Salons | Jamaalaki" : "الصالونات | جمالكِ"}</title>
         <meta name="description" content={isLtr 
           ? "Browse and filter luxury salons designed for women in Saudi Arabia"
           : "تصفح وتصفية صالونات الرفاهية المصممة للنساء في المملكة العربية السعودية"
