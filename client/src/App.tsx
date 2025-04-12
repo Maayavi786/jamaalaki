@@ -6,6 +6,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 // Pages
 import Home from "@/pages/Home";
 import Salons from "@/pages/Salons";
+import Services from "@/pages/Services";
+import About from "@/pages/About";
 import SalonDetails from "@/pages/SalonDetails";
 import BookingPage from "@/pages/BookingPage";
 import Profile from "@/pages/Profile";
@@ -22,6 +24,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/salons" component={Salons} />
+      <Route path="/services" component={Services} />
+      <Route path="/about" component={About} />
       <Route path="/salon/:id" component={SalonDetails} />
       <Route path="/booking/:salonId/:serviceId" component={BookingPage} />
       <Route path="/profile" component={Profile} />

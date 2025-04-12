@@ -3,6 +3,44 @@ import { initReactI18next } from 'react-i18next';
 
 // English translations
 const enTranslations = {
+  about: {
+    aboutTitle: "Discover Glam Haven",
+    aboutSubtitle: "The premier salon booking platform designed specifically for women in Saudi Arabia.",
+    exploreNow: "Explore Now",
+    ourStory: "Our Story",
+    ourStoryP1: "Founded in 2022, Glam Haven was created to address the unique needs of women in Saudi Arabia seeking premium salon experiences that respect their cultural values and preferences.",
+    ourStoryP2: "Our founder, Sarah Al-Qahtani, recognized the need for a platform that would not only connect women with high-quality salons but also provide options like ladies-only environments, private rooms, and hijab-friendly services.",
+    ourStoryP3: "Today, Glam Haven partners with hundreds of premium salons across Saudi Arabia, offering a seamless booking experience while maintaining the highest standards of service and cultural respect.",
+    ourValues: "Our Values",
+    customerCentric: "Customer-Centric",
+    customerCentricDesc: "We put our customers' needs and preferences at the heart of everything we do.",
+    quality: "Quality Excellence",
+    qualityDesc: "We partner only with salons that meet our rigorous standards of service and professionalism.",
+    convenience: "Convenience",
+    convenienceDesc: "Our platform is designed to make booking beauty services simple, fast, and stress-free.",
+    community: "Community",
+    communityDesc: "We're building a community of women who appreciate and support quality beauty services.",
+    meetOurTeam: "Meet Our Team",
+    founder: "Founder & CEO",
+    operations: "Head of Operations",
+    marketing: "Marketing Director",
+    getInTouch: "Get In Touch",
+    visitUs: "Visit Us",
+    emailUs: "Email Us",
+    callUs: "Call Us",
+  },
+  services: {
+    ourServices: "Our Services",
+    all: "All",
+    haircuts: "Haircuts",
+    coloring: "Coloring",
+    styling: "Styling",
+    facial: "Facial",
+    makeup: "Makeup",
+    nails: "Nails",
+    massage: "Massage",
+    noServicesFound: "No services found for your selection. Please try different filters.",
+  },
   common: {
     languageToggle: 'العربية',
     login: 'Login',
@@ -78,7 +116,7 @@ const enTranslations = {
     step4: 'Confirm Booking',
     step4Desc: 'Review your booking details and confirm your appointment',
   },
-  services: {
+  serviceTypes: {
     spaAndMassage: 'Spa & Massage',
     spaAndMassageDesc: 'Relaxing treatments to rejuvenate your body and mind',
     hairStyling: 'Hair Styling',

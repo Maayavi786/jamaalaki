@@ -1,11 +1,10 @@
+import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@shared/schema";
-import { Clock, BadgeDollarSign } from "lucide-react";
-import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
+import { Clock, Star } from "lucide-react";
 
 interface ServiceCardProps {
   service: Service;
@@ -13,53 +12,47 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ service, salonId }: ServiceCardProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const { isLtr, isRtl } = useLanguage();
+  
+  const durationMap: Record<string, string> = {
+    "15min": "15 min",
+    "30min": "30 min",
+    "45min": "45 min",
+    "60min": "1 hour",
+    "90min": "1.5 hours",
+    "120min": "2 hours"
+  };
 
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-all">
-      <CardContent className="p-6">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className={`font-bold text-lg mb-2 ${isLtr ? '' : 'font-tajawal'}`}>
-              {isLtr ? service.nameEn : service.nameAr}
-            </h3>
-            <p className={`text-sm text-muted-foreground ${isLtr ? '' : 'font-tajawal'}`}>
-              {isLtr ? service.descriptionEn : service.descriptionAr}
-            </p>
-          </div>
-          
-          <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-            {service.category}
-          </div>
-        </div>
+    <div className="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+      <div className="p-6">
+        <h3 className={`text-xl font-bold mb-2 ${isRtl ? 'font-tajawal' : ''}`}>
+          {isLtr ? service.nameEn : service.nameAr}
+        </h3>
         
-        <div className="flex items-center justify-between mb-4">
+        <p className={`text-muted-foreground text-sm mb-4 line-clamp-2 h-10 ${isRtl ? 'font-tajawal' : ''}`}>
+          {isLtr ? service.descriptionEn : service.descriptionAr}
+        </p>
+        
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center text-sm text-muted-foreground">
-            <Clock className="h-4 w-4 mr-1 rtl:ml-1 rtl:mr-0" />
-            <span className={`${isRtl ? 'font-tajawal' : ''}`}>
-              {service.duration} {t("salon.minutes")}
-            </span>
+            <Clock className="h-4 w-4 mr-1" />
+            <span>{durationMap[service.duration] || service.duration}</span>
           </div>
           
-          <div className="flex items-center text-sm font-medium">
-            <BadgeDollarSign className="h-4 w-4 mr-1 rtl:ml-1 rtl:mr-0 text-primary" />
-            <span className="text-primary">
-              {formatPrice(service.price)}
-            </span>
+          <div className="flex items-center">
+            <span className="font-bold text-lg">{formatPrice(service.price, "SAR")}</span>
           </div>
         </div>
         
         <Link href={`/booking/${salonId}/${service.id}`}>
-          <Button 
-            className={`w-full ${isRtl ? 'font-tajawal' : ''}`}
-            variant="outline"
-          >
-            {t("common.bookNow")}
+          <Button className="w-full bg-primary hover:bg-primary/90 text-white">
+            {t("bookNow")}
           </Button>
         </Link>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
