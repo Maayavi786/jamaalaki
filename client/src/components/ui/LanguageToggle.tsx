@@ -1,20 +1,19 @@
 
-import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function LanguageToggle() {
-  const { t } = useTranslation("common");
-  const { toggleLanguage, language, isRtl } = useLanguage();
-
+  const { language, setLanguage } = useLanguage();
+  const isRtl = language === 'ar';
+  
   return (
-    <Button 
-      className={`bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 ${isRtl ? 'font-tajawal' : ''}`}
-      onClick={toggleLanguage}
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() => setLanguage(isRtl ? 'en' : 'ar')}
+      className={`font-medium ${isRtl ? 'font-tajawal' : ''}`}
     >
-      {language === 'en' ? 'العربية' : 'English'}
+      {isRtl ? 'English' : 'العربية'}
     </Button>
   );
 }
-
-export default LanguageToggle;
