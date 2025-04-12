@@ -10,9 +10,8 @@ export function LanguageToggle() {
   return (
     <Button
       variant="ghost"
-      size="icon"
       onClick={toggleLanguage}
-      className="text-primary p-2 rounded-full hover:bg-primary hover:bg-opacity-10 transition-colors"
+      className="text-primary px-4 py-2 hover:bg-primary hover:bg-opacity-10 transition-colors"
     >
       {language === 'en' ? 'العربية' : 'English'}
     </Button>
