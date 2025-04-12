@@ -67,7 +67,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Glam Haven - {isLtr ? "Luxury Salon Booking" : "حجز صالون الرفاهية"}</title>
+        <title>The Beauty - {isLtr ? "Luxury Salon Booking" : "حجز صالون الرفاهية"}</title>
         <meta name="description" content={isLtr 
           ? "Book luxury salon services designed specifically for women in Saudi Arabia"
           : "احجزي خدمات صالون فاخرة مصممة خصيصًا للنساء في المملكة العربية السعودية"
