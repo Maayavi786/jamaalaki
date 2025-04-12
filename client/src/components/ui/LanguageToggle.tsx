@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 export function LanguageToggle() {
   const { t } = useTranslation("common");
-  const { toggleLanguage, language } = useLanguage();
+  const { toggleLanguage, language, isRtl } = useLanguage();
 
   return (
     <Button 
