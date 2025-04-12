@@ -8,10 +8,9 @@ export function LanguageToggle() {
   const { toggleLanguage, language } = useLanguage();
 
   return (
-    <Button
-      variant="ghost"
+    <Button 
+      className={`bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 ${isRtl ? 'font-tajawal' : ''}`}
       onClick={toggleLanguage}
-      className="text-primary px-4 py-2 hover:bg-primary hover:bg-opacity-10 transition-colors"
     >
       {language === 'en' ? 'العربية' : 'English'}
     </Button>
