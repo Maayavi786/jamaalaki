@@ -107,7 +107,10 @@ export class MemStorage implements IStorage {
       ...userData, 
       id, 
       createdAt,
-      loyaltyPoints: 0
+      loyaltyPoints: userData.loyaltyPoints ?? 0,
+      phone: userData.phone ?? null,
+      role: userData.role ?? 'customer',
+      preferredLanguage: userData.preferredLanguage ?? 'en'
     };
     this.users.set(id, user);
     return user;
@@ -161,7 +164,18 @@ export class MemStorage implements IStorage {
   async createSalon(salonData: InsertSalon): Promise<Salon> {
     const id = this.salonIdCounter++;
     const createdAt = new Date();
-    const salon: Salon = { ...salonData, id, createdAt, rating: 0 };
+    const salon: Salon = { 
+      ...salonData, 
+      id, 
+      createdAt, 
+      rating: salonData.rating ?? 0,
+      email: salonData.email ?? null,
+      imageUrl: salonData.imageUrl ?? null,
+      descriptionEn: salonData.descriptionEn ?? null,
+      descriptionAr: salonData.descriptionAr ?? null,
+      priceRange: salonData.priceRange ?? null,
+      isVerified: salonData.isVerified ?? false
+    };
     this.salons.set(id, salon);
     return salon;
   }
@@ -194,7 +208,13 @@ export class MemStorage implements IStorage {
   
   async createService(serviceData: InsertService): Promise<Service> {
     const id = this.serviceIdCounter++;
-    const service: Service = { ...serviceData, id };
+    const service: Service = { 
+      ...serviceData, 
+      id,
+      descriptionEn: serviceData.descriptionEn ?? null,
+      descriptionAr: serviceData.descriptionAr ?? null,
+      imageUrl: serviceData.imageUrl ?? null
+    };
     this.services.set(id, service);
     return service;
   }
@@ -232,11 +252,15 @@ export class MemStorage implements IStorage {
   async createBooking(bookingData: InsertBooking): Promise<Booking> {
     const id = this.bookingIdCounter++;
     const createdAt = new Date();
+    const points = Math.floor(bookingData.serviceId % 10) * 10; // Mock points calculation
+    
     const booking: Booking = { 
       ...bookingData, 
       id, 
       createdAt, 
-      pointsEarned: Math.floor(bookingData.serviceId % 10) * 10 // Mock points calculation
+      status: bookingData.status ?? 'pending',
+      notes: bookingData.notes ?? null,
+      pointsEarned: bookingData.pointsEarned ?? points
     };
     this.bookings.set(id, booking);
     
