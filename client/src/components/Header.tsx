@@ -18,7 +18,7 @@ import {
 const Header = () => {
   const { t } = useTranslation("common");
   const { isLtr, isRtl } = useLanguage();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [location, navigate] = useLocation();
 

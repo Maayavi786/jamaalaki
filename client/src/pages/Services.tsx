@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useQuery } from '@tanstack/react-query';
@@ -6,7 +6,6 @@ import { Service } from '@shared/schema';
 import FilterChips from '@/components/FilterChips';
 import ServiceCard from '@/components/ServiceCard';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { getIslamicPatternSvg } from '@/lib/utils';

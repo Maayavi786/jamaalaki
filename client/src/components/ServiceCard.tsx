@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Service } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
-import { Clock, Star } from "lucide-react";
+import { Clock } from 'lucide-react';
 
 interface ServiceCardProps {
   service: Service;

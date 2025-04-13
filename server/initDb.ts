@@ -70,7 +70,7 @@ export async function initializeDatabase() {
               'علاجات تجميل معاصرة في بيئة أنيقة.',
               'Tahlia Street, Jeddah', 'Jeddah', 'info@thebeauty.sa', '+966512345679',
               true, true, true, true, 4.6, 'premium', NOW(),
-              'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80')e, true, 4.5, 'mid-range', NOW())
+              'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80')
       RETURNING id
     `);
     const salon2Id = salon2Result.rows[0].id;

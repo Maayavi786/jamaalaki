@@ -97,10 +97,13 @@ export const insertServiceSchema = createInsertSchema(services).omit({
   id: true,
 });
 
-export const insertBookingSchema = createInsertSchema(bookings).omit({
-  id: true,
-  createdAt: true,
-  pointsEarned: true,
+export const insertBookingSchema = z.object({
+  userId: z.number(),
+  salonId: z.number(),
+  serviceId: z.number(),
+  datetime: z.string().transform((str) => new Date(str)),
+  notes: z.string().optional(),
+  status: z.enum(['pending', 'confirmed', 'cancelled', 'completed']).optional(),
 });
 
 export const insertReviewSchema = createInsertSchema(reviews).omit({

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Scissors, Bath, PaintbrushVertical, Wand2 } from "lucide-react";
+import { Scissors, Bath, Paintbrush, Wand2 } from "lucide-react";
 
 const ServicesSection = () => {
   const { t } = useTranslation(["services", "common"]);
@@ -25,7 +25,7 @@ const ServicesSection = () => {
     },
     {
       id: "nails",
-      icon: <PaintbrushVertical className="text-xl" />,
+      icon: <Paintbrush className="text-xl" />,
       bgColor: "bg-secondary",
       title: t("nailArt"),
       description: t("nailArtDesc")

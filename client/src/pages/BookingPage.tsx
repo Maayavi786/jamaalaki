@@ -5,18 +5,11 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRoute, useLocation } from "wouter";
-import { Salon, Service, insertBookingSchema } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { getIslamicPatternSvg, formatPrice, getTimeSlots } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Loader2, Calendar as CalendarIcon, Clock, CheckCircle2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,14 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Salon, Service } from "@shared/schema";
 
 const BookingPage = () => {
   const { t } = useTranslation(["salon", "common"]);
@@ -321,9 +308,11 @@ const BookingPage = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center pb-3 border-b">
-                  <div className={`${isRtl ? 'font-tajawal' : ''}`}>
-                    <p className="font-medium">{isLtr ? salon.nameEn : salon.nameAr}</p>
-                    <p className="text-sm text-muted-foreground">{salon.city}</p>
+                  <div>
+                    <p className={`${isRtl ? 'font-tajawal' : ''}`}>
+                      <span className="font-medium">{isLtr ? salon.nameEn : salon.nameAr}</span>
+                      <span className="text-sm text-muted-foreground">{salon.city}</span>
+                    </p>
                   </div>
                 </div>
                 

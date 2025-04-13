@@ -15,7 +15,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,7 +32,7 @@ const Login = () => {
   const { t } = useTranslation("auth");
   const { isLtr, isRtl } = useLanguage();
   const { login, isAuthenticated, loading } = useAuth();
-  const [location, navigate] = useLocation();
+  const [, navigate] = useLocation();
   
   // Parse redirect URL from query params
   const getRedirectPath = () => {

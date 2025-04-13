@@ -103,6 +103,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/users/:id", async (req: Request, res: Response) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Only allow updating certain fields
+      const allowedUpdates = ["fullName", "phone", "preferredLanguage"];
+      const updates: Record<string, any> = {};
+      for (const field of allowedUpdates) {
+        if (field in req.body) {
+          updates[field] = req.body[field];
+        }
+      }
+
+      const updatedUser = await storage.updateUser(userId, updates);
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Don't return password in response
+      const { password, ...userWithoutPassword } = updatedUser;
+      res.status(200).json(userWithoutPassword);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
   // Salon routes
   app.get("/api/salons", async (req: Request, res: Response) => {
     try {

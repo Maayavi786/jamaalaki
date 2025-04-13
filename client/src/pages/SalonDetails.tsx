@@ -35,7 +35,7 @@ const SalonDetails = () => {
   const { isLtr, isRtl } = useLanguage();
   const [_, params] = useRoute<{ id: string }>("/salon/:id");
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState("services");
+  const [, setActiveTab] = useState("services");
   
   // Fetch salon data
   const { data: salon, isLoading: isSalonLoading, error: salonError } = useQuery<Salon>({
@@ -118,7 +118,7 @@ const SalonDetails = () => {
       {/* Salon Header */}
       <div className="relative h-80">
         <img 
-          src={salon.imageUrl} 
+          src={salon.imageUrl || ''} 
           alt={isLtr ? salon.nameEn : salon.nameAr} 
           className="w-full h-full object-cover"
         />
